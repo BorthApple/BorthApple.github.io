@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>
+    
+    小天才</title>
+  
+    <link rel="shortcut icon" href="/images/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+    <link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+  
+  <script src="/js/pace.min.js"></script>
+</head>
+
+<body>
+<main class="content">
+  <section class="jumbotron">
+  <div class="video">
+    
+      <div class="video-frame">
+        <img src="/images/ocean/overlay-hero.png" alt="Decorative image frame">
+      </div>
+    
+    <div class="video-media">
+      <video playsinline="" autoplay="" loop="" muted="" data-autoplay=""
+             poster="/images/ocean/ocean.png" x5-video-player-type="h5">
+        <source src="/images/ocean/ocean.mp4" type="video/mp4">
+        <source src="/images/ocean/ocean.ogv" type="video/ogg">
+        <source src="/images/ocean/ocean.webm" type="video/webm">
+        <p>Your user agent does not support the HTML5 Video element.</p>
+      </video>
+      <div class="video-overlay"></div>
+    </div>
+    <div class="video-inner text-center text-white">
+      <h1><a href="/">小天才</a></h1>
+      <p>苦逼学生 | 正在读书 | 想当小天才</p>
+      <div><img src="/images/hexo-inverted.svg" class="brand" alt="小天才"></div>
+    </div>
+    <div class="video-learn-more">
+      <a class="anchor" href="#landingpage"><i class="fe fe-mouse"></i></a>
+    </div>
+  </div>
+</section>
+
+<div id="landingpage">
+  <section class="outer">
+  <article class="articles">
+    
+    <h1 class="page-type-title"></h1>
+
+    
+      
+        
+
+<article id="post-初窥比特币，革命性的时代骄傲" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h2 itemprop="name">
+      <a class="article-title" href="/posts/8383/">初窥比特币，革命性的时代骄傲</a>
+    </h2>
+  
+  
+  <div class="article-topping">
+    <i class="fe fe-umbrella"></i>
+  </div>
+
+
+
+
+
+      </header>
+    
+
+    
+      <div class="article-meta">
+        <a href="/posts/8383/" class="article-date">
+  <time datetime="2018-02-18T17:00:45.000Z" itemprop="datePublished">2018-02-19</time>
+</a>
+        
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/">计算机</a>
+  </div>
+
+      </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+        <h2 id="0-序："><a href="#0-序：" class="headerlink" title="0. 序："></a>0. 序：</h2><p>这是它的创造者中本聪（Satoshi Nakamoto）给出的介绍： </p>
+<blockquote>
+<p>A purely peer-to-peer version of electronic cash would allow online payments to be sent directly from one party to another without going through a financial institution. </p>
+<p>译：一个完全通过端对端技术实现的电子现金系统，它允许在线支付可以由一方发起并支付给另一方而不需要通过任何的金融机构。</p>
+</blockquote>
+<p>在2009年1月3日下午六点十五分零五秒，随着比特币的创世区块的诞生，第一批比特币被发掘出来。随后不断加入其中的人们感叹着它设计的精妙。其环环相扣的各种机制，不仅仅是对于支付领域，对于其他领域也具有非常大的启发意义。</p>
+        
+          <a class="article-more-link" href="/posts/8383/">更多...</a>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.fenzhengrou.wang/posts/8383/" data-id="ckhrk29zh000idyvl4fifcgbh"
+         class="article-share-link">分享</a>
+      
+    </footer>
+
+  </div>
+
+  
+
+  
+
+</article>
+
+
+
+      
+        
+
+<article id="post-Github代理设置" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h2 itemprop="name">
+      <a class="article-title" href="/posts/47754/">Github代理设置</a>
+    </h2>
+  
+  
+
+
+
+
+      </header>
+    
+
+    
+      <div class="article-meta">
+        <a href="/posts/47754/" class="article-date">
+  <time datetime="2020-11-21T10:24:24.000Z" itemprop="datePublished">2020-11-21</time>
+</a>
+        
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/">计算机</a>
+  </div>
+
+      </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+        <p>本文记录了在Linux（含MacOS）、Windows下配置SSH、HTTP代理以加速Github的使用。</p>
+<h2 id="HTTP连接"><a href="#HTTP连接" class="headerlink" title="HTTP连接"></a>HTTP连接</h2><p>HTTP可以使用HTTP代理服务器进行加速，在Github中配置：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">git config --global https.proxy http://127.0.0.1:1080</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">git config --global https.proxy https://127.0.0.1:1080</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">git config --global --<span class="built_in">unset</span> http.proxy</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">git config --global --<span class="built_in">unset</span> https.proxy</span></pre></td></tr></table></figure>
+
+<h2 id="SSH连接"><a href="#SSH连接" class="headerlink" title="SSH连接"></a>SSH连接</h2><p>针对SSH方式操作的仓库，需要配置Socks5代理，在<code>~/.ssh/config</code>文件中加入<code>ProxyCommand</code>配置即可，Linux下可用：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">Host github.com</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">  User git</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">  ProxyCommand nc -X 5 -x 127.0.0.1:1086 %h %p</span></pre></td></tr></table></figure>
+
+<p>Windows下可使用</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">Host github.com</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">    User git</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">    ProxyCommand connect -S 127.0.0.1:2801 %h %p</span></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.fenzhengrou.wang/posts/47754/" data-id="ckhrk29z40008dyvl4eo18qma"
+         class="article-share-link">分享</a>
+      
+    </footer>
+
+  </div>
+
+  
+
+  
+
+</article>
+
+
+
+      
+        
+
+<article id="post-MongoDB基础配置手册" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h2 itemprop="name">
+      <a class="article-title" href="/posts/43565/">MongoDB基础配置手册</a>
+    </h2>
+  
+  
+
+
+
+
+      </header>
+    
+
+    
+      <div class="article-meta">
+        <a href="/posts/43565/" class="article-date">
+  <time datetime="2020-11-18T12:22:24.000Z" itemprop="datePublished">2020-11-18</time>
+</a>
+        
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/">计算机</a>
+  </div>
+
+      </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+        <h2 id="基于Docker的建立"><a href="#基于Docker的建立" class="headerlink" title="基于Docker的建立"></a>基于Docker的建立</h2><h3 id="创建数据库"><a href="#创建数据库" class="headerlink" title="创建数据库"></a>创建数据库</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">docker run -d -p 27017:27017 —name mongo \</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">  -e MONGO_INITDB_ROOT_USERNAME=root \</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">  -e MONGO_INITDB_ROOT_PASSWORD=mypassword \</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">  -e MONGO_INITDB_DATABASE=myfirstdb \</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">  -v /my/own/datadir:/data/db \</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">  mongo:4</span></pre></td></tr></table></figure>
+        
+          <a class="article-more-link" href="/posts/43565/">更多...</a>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.fenzhengrou.wang/posts/43565/" data-id="ckhrk29zc000cdyvl620x3p2v"
+         class="article-share-link">分享</a>
+      
+    </footer>
+
+  </div>
+
+  
+
+  
+
+</article>
+
+
+
+      
+        
+
+<article id="post-LXD虚拟化配置" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h2 itemprop="name">
+      <a class="article-title" href="/posts/36478/">LXD虚拟化服务器</a>
+    </h2>
+  
+  
+
+
+
+
+      </header>
+    
+
+    
+      <div class="article-meta">
+        <a href="/posts/36478/" class="article-date">
+  <time datetime="2020-07-04T18:37:24.000Z" itemprop="datePublished">2020-07-05</time>
+</a>
+        
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/">计算机</a>
+  </div>
+
+      </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+        <p>本文档记录了简单的LXD虚拟化方案，能够实现</p>
+<ul>
+<li>在物理机上创建多个隔离的容器环境</li>
+<li>在容器环境中运行桌面</li>
+<li>将GPU接入容器环境中，并在多个容器间共享</li>
+</ul>
+        
+          <a class="article-more-link" href="/posts/36478/">更多...</a>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.fenzhengrou.wang/posts/36478/" data-id="ckhrk29z90009dyvl71m9b43a"
+         class="article-share-link">分享</a>
+      
+    </footer>
+
+  </div>
+
+  
+
+  
+
+</article>
+
+
+
+      
+        
+
+<article id="post-利用vcpkg轻松安装C++库" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h2 itemprop="name">
+      <a class="article-title" href="/posts/65004/">利用vcpkg轻松安装C++库</a>
+    </h2>
+  
+  
+
+
+
+
+      </header>
+    
+
+    
+      <div class="article-meta">
+        <a href="/posts/65004/" class="article-date">
+  <time datetime="2019-12-10T06:18:47.000Z" itemprop="datePublished">2019-12-10</time>
+</a>
+        
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%95%B4%E7%90%86/">整理</a> / <a class="article-category-link" href="/categories/%E6%95%B4%E7%90%86/%E8%AE%A1%E7%AE%97%E6%9C%BA/">计算机</a>
+  </div>
+
+      </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+        <p>在C++上配置各种库这件事情是不太容易的。并且在各种平台上可以有各种不同的配置方法。通常我们在使用一个C++库时都具有下面的几个步骤：</p>
+<ol>
+<li>下载库源代码</li>
+<li>编译库</li>
+<li>将库引入到项目中</li>
+</ol>
+<p>虽然只有区区几步，但是在实现这些步骤时却需要做很多事情，并且稍有不慎可能就会导致最终的结果完全错误。</p>
+<p>基于这个问题，微软开源了跨平台的包管理工具vcpkg，它可以在Windows、Linux和MacOS上运行，只需要用一行命令就可以安装C++库并自动地引入到项目中。</p>
+        
+          <a class="article-more-link" href="/posts/65004/">更多...</a>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.fenzhengrou.wang/posts/65004/" data-id="ckhrk29zk000ldyvl728odnmn"
+         class="article-share-link">分享</a>
+      
+    </footer>
+
+  </div>
+
+  
+
+  
+
+</article>
+
+
+
+      
+        
+
+<article id="post-2018年度总结" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h2 itemprop="name">
+      <a class="article-title" href="/posts/15980/">2018，这一年，我的备忘录</a>
+    </h2>
+  
+  
+
+
+
+
+      </header>
+    
+
+    
+      <div class="article-meta">
+        <a href="/posts/15980/" class="article-date">
+  <time datetime="2018-12-31T16:25:24.000Z" itemprop="datePublished">2019-01-01</time>
+</a>
+        
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E9%9A%8F%E7%AC%94/">随笔</a>
+  </div>
+
+      </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+        <h1 id="这一年，我的备忘录"><a href="#这一年，我的备忘录" class="headerlink" title="这一年，我的备忘录"></a>这一年，我的备忘录</h1><p>有的时候我会写备忘录。</p>
+<p>第一次在外省过元旦，恰好缝上南方少见的寒冷天气，可能是南方人对成天的大雪少有体会，以至于这些日子哆哆嗦嗦都不情愿在室外多待一秒钟。对着电脑，实在是不知道要对这一年说些什么，像是旅人与一个当地人的道别，每年如此，遇见再告别，再遇见，再告别，离别都不是那么要紧。而这备忘录，我是当作游记一般，不论因果，不讲得失。如果要看这一年，便就是要读读看自己的“游记”。</p>
+        
+          <a class="article-more-link" href="/posts/15980/">更多...</a>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.fenzhengrou.wang/posts/15980/" data-id="ckhrk29y50000dyvlctgret4r"
+         class="article-share-link">分享</a>
+      
+    </footer>
+
+  </div>
+
+  
+
+  
+
+</article>
+
+
+
+      
+        
+
+<article id="post-Caffe 以及 Caffe-SSD 在Ubuntu16.04上的配置" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h2 itemprop="name">
+      <a class="article-title" href="/posts/17811/">Caffe 以及 Caffe-SSD 的配置</a>
+    </h2>
+  
+  
+
+
+
+
+      </header>
+    
+
+    
+      <div class="article-meta">
+        <a href="/posts/17811/" class="article-date">
+  <time datetime="2018-11-14T16:46:49.000Z" itemprop="datePublished">2018-11-15</time>
+</a>
+        
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%95%B4%E7%90%86/">整理</a> / <a class="article-category-link" href="/categories/%E6%95%B4%E7%90%86/%E8%AE%A1%E7%AE%97%E6%9C%BA/">计算机</a>
+  </div>
+
+      </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+        <p>这段时间装了很多次Caffe，总结了一些方法和经验。此处笔者安装的是带GPU支持的Caffe。但是CPU ONLY的方法与GPU安装差异不大。笔者会在其中说明。</p>
+        
+          <a class="article-more-link" href="/posts/17811/">更多...</a>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.fenzhengrou.wang/posts/17811/" data-id="ckhrk29ym0004dyvlab90b6o3"
+         class="article-share-link">分享</a>
+      
+    </footer>
+
+  </div>
+
+  
+
+  
+
+</article>
+
+
+
+      
+        
+
+<article id="post-Calenass 轻松管理课程日程" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h2 itemprop="name">
+      <a class="article-title" href="/posts/10943/">Calenass 轻松管理课程日程</a>
+    </h2>
+  
+  
+
+
+
+
+      </header>
+    
+
+    
+      <div class="article-meta">
+        <a href="/posts/10943/" class="article-date">
+  <time datetime="2018-10-03T14:38:10.000Z" itemprop="datePublished">2018-10-03</time>
+</a>
+        
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%88%9B%E4%BD%9C/">创作</a> / <a class="article-category-link" href="/categories/%E5%88%9B%E4%BD%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA/">计算机</a>
+  </div>
+
+      </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+        <h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>Calenass能够很方便地为你管理你的课程表。它能够创建<code>ics</code>文件，从而将课程安排导入到你的日历当中。方便你进行其他的管理。同时，它还支持导出/导入设置，从而让你更方便地共享你的课程安排。并且，我们同时提供了Windows，MacOS，Linux和Darwin的适用版本。满足不同设备的需求。</p>
+        
+          <a class="article-more-link" href="/posts/10943/">更多...</a>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.fenzhengrou.wang/posts/10943/" data-id="ckhrk29ys0005dyvlbbx01ufo"
+         class="article-share-link">分享</a>
+      
+    </footer>
+
+  </div>
+
+  
+
+  
+
+</article>
+
+
+
+      
+        
+
+<article id="post-给每个人的微信取证指南，这件事不是截个图那么简单" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h2 itemprop="name">
+      <a class="article-title" href="/posts/30296/">给每个人的微信取证指南，这件事不是截个图那么简单</a>
+    </h2>
+  
+  
+
+
+
+
+      </header>
+    
+
+    
+      <div class="article-meta">
+        <a href="/posts/30296/" class="article-date">
+  <time datetime="2018-09-03T10:24:55.000Z" itemprop="datePublished">2018-09-03</time>
+</a>
+        
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%9D%82%E8%B0%88/">杂谈</a>
+  </div>
+
+      </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+        <blockquote>
+<p>转自少数派，<a href="https://sspai.com/post/46220" target="_blank" rel="noopener">原文链接</a><br>作者：張奕源 Nick</p>
+</blockquote>
+<p>2018 年 7 月 18 日，广东省广州市南沙区人民法院（广东自由贸易区南沙片区人民法院）出台《<a href="http://opinion.people.com.cn/n1/2018/0720/c1003-30159812.html" target="_blank" rel="noopener">互联网电子数据证据举证、认证规程</a>》，使「微信取证」再次成为公众关注焦点。因此本文将从法律从业人员的角度，聊一聊微信取证（及其它互联网社交软件取证）的相关问题。</p>
+<p>（Nick 按：这篇文章由做律师的黛西老师原创，由于她没有 Matrix 帐号，于是假我手发出，希望能对你有所帮助。）</p>
+        
+          <a class="article-more-link" href="/posts/30296/">更多...</a>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.fenzhengrou.wang/posts/30296/" data-id="ckhrk29zu000xdyvl240l2rkg"
+         class="article-share-link">分享</a>
+      
+    </footer>
+
+  </div>
+
+  
+
+  
+
+</article>
+
+
+
+      
+        
+
+<article id="post-CryptoPP库的封装：cryptoppw" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h2 itemprop="name">
+      <a class="article-title" href="/posts/16459/">Crypto++库的封装：crypto++ wrap</a>
+    </h2>
+  
+  
+
+
+
+
+      </header>
+    
+
+    
+      <div class="article-meta">
+        <a href="/posts/16459/" class="article-date">
+  <time datetime="2018-08-26T14:28:16.000Z" itemprop="datePublished">2018-08-26</time>
+</a>
+        
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%88%9B%E4%BD%9C/">创作</a> / <a class="article-category-link" href="/categories/%E5%88%9B%E4%BD%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA/">计算机</a>
+  </div>
+
+      </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+        <h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>Crypto++是一个非常优秀的跨平台的C++库，其中支持了众多加密和编码的算法。但是由于其调用逻辑和使用有的时候比较繁琐，为了避免重复的工作，这个项目用于存储对于crypto++的一些封装函数，尽可能做到一个功能一行代码直接调用完成。如下是关于封装库的使用说明，如果有任何不严谨的或错误的地方，欢迎指出。</p>
+        
+          <a class="article-more-link" href="/posts/16459/">更多...</a>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.fenzhengrou.wang/posts/16459/" data-id="ckhrk29yw0006dyvle7dbg4dg"
+         class="article-share-link">分享</a>
+      
+    </footer>
+
+  </div>
+
+  
+
+  
+
+</article>
+
+
+
+      
+  </article>
+  
+
+  
+    <nav class="page-nav">
+      
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">下一页</a>
+    </nav>
+  
+</section>
+</div>
+
+  <footer class="footer">
+  <div class="outer">
+    <div class="float-right">
+      <ul class="list-inline">
+  
+    <li><i class="fe fe-smile-alt"></i> <span id="busuanzi_value_site_uv"></span></li>
+  
+</ul>
+    </div>
+    <ul class="list-inline">
+      <li>&copy; 2020 小天才</li>
+      <!-- <li>湘ICP备18010341号-1</li> -->
+    </ul>
+  </div>
+</footer>
+
+</main>
+
+  <aside class="sidebar">
+    
+    <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+    <div class="logo">
+      <a href="/"><img src="/images/hexo.svg" alt="小天才"></a>
+    </div>
+  
+  <ul class="nav nav-main">
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/">首页</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/archives">文字</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/about">关于</a>
+      </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link nav-item-search" title="搜索">
+        <i class="fe fe-search"></i>
+        搜索
+      </a>
+    </li>
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      <div class="totop" id="totop">
+  <i class="fe fe-rocket"></i>
+</div>
+    </li>
+    <li class="nav-item">
+      
+        <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+          <i class="fe fe-feed"></i>
+        </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+  </aside>
+  <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+<script src="/js/lazyload.min.js"></script>
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+  <script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/ocean.js"></script>
+
+</body>
+</html>

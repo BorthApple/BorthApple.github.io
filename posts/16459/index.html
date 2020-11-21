@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>
+    Crypto++库的封装：crypto++ wrap |
+    
+    小天才</title>
+  
+    <link rel="shortcut icon" href="/images/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+    <link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+  
+  <script src="/js/pace.min.js"></script>
+</head>
+
+<body>
+<main class="content">
+  <section class="outer">
+  
+
+<article id="post-CryptoPP库的封装：cryptoppw" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Crypto++库的封装：crypto++ wrap
+    </h1>
+  
+  
+
+
+
+
+      </header>
+    
+
+    
+      <div class="article-meta">
+        <a href="/posts/16459/" class="article-date">
+  <time datetime="2018-08-26T14:28:16.000Z" itemprop="datePublished">2018-08-26</time>
+</a>
+        
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%88%9B%E4%BD%9C/">创作</a> / <a class="article-category-link" href="/categories/%E5%88%9B%E4%BD%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA/">计算机</a>
+  </div>
+
+      </div>
+    
+
+    
+      
+    <div class="tocbot"></div>
+
+
+
+
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+        <h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>Crypto++是一个非常优秀的跨平台的C++库，其中支持了众多加密和编码的算法。但是由于其调用逻辑和使用有的时候比较繁琐，为了避免重复的工作，这个项目用于存储对于crypto++的一些封装函数，尽可能做到一个功能一行代码直接调用完成。如下是关于封装库的使用说明，如果有任何不严谨的或错误的地方，欢迎指出。</p>
+<a id="more"></a>
+
+<h2 id="代码地址"><a href="#代码地址" class="headerlink" title="代码地址"></a>代码地址</h2><p><strong>Github: <a href="https://github.com/StephanXu/cryptoppw" target="_blank" rel="noopener">https://github.com/StephanXu/cryptoppw</a><br>在Github中我也贴出了下面的使用说明，展现效果可能比博客中的更好，请移步到Github中阅读。</strong></p>
+<h2 id="函数使用说明"><a href="#函数使用说明" class="headerlink" title="函数使用说明"></a>函数使用说明</h2><h3 id="AES-算法"><a href="#AES-算法" class="headerlink" title="AES 算法"></a>AES 算法</h3><p>文件为aes文件夹下的两个文件，使用头文件中声明的两个函数即可。如下是使用说明。</p>
+<h5 id="CBC-AESEncryptStr"><a href="#CBC-AESEncryptStr" class="headerlink" title="CBC_AESEncryptStr"></a>CBC_AESEncryptStr</h5><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">std</span>::<span class="function"><span class="built_in">string</span> <span class="title">CBC_AESEncryptStr</span><span class="params">(<span class="built_in">std</span>::<span class="built_in">string</span> sKey, <span class="built_in">std</span>::<span class="built_in">string</span> sIV, <span class="keyword">const</span> <span class="keyword">char</span> *plainText)</span></span>;</span></pre></td></tr></table></figure>
+<ul>
+<li>描述：AES算法加密字符串</li>
+<li>返回值：(std::string)加密结果</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>参数名</th>
+<th>类型</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>sKey</td>
+<td>std::string</td>
+<td>32位长度密钥</td>
+</tr>
+<tr>
+<td>sIV</td>
+<td>std::string</td>
+<td>16位长度IV</td>
+</tr>
+<tr>
+<td>plainText</td>
+<td>const char*</td>
+<td>待加密的字符串</td>
+</tr>
+</tbody></table>
+<h5 id="CBC-AESDecryptStr"><a href="#CBC-AESDecryptStr" class="headerlink" title="CBC_AESDecryptStr"></a>CBC_AESDecryptStr</h5><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">std</span>::<span class="function"><span class="built_in">string</span> <span class="title">CBC_AESDecryptStr</span><span class="params">(<span class="built_in">std</span>::<span class="built_in">string</span> sKey, <span class="built_in">std</span>::<span class="built_in">string</span> sIV, <span class="keyword">const</span> <span class="keyword">char</span> *cipherText)</span></span>;</span></pre></td></tr></table></figure>
+<ul>
+<li>描述：解密AES加密后的字符串</li>
+<li>返回值：(std::string)解密结果</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>参数名</th>
+<th>类型</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>sKey</td>
+<td>std::string</td>
+<td>32位长度密钥</td>
+</tr>
+<tr>
+<td>sIV</td>
+<td>std::string</td>
+<td>16位长度IV</td>
+</tr>
+<tr>
+<td>cipherText</td>
+<td>const char*</td>
+<td>待解密的字符串</td>
+</tr>
+</tbody></table>
+<h3 id="RSA算法"><a href="#RSA算法" class="headerlink" title="RSA算法"></a>RSA算法</h3><h5 id="GenerateKey"><a href="#GenerateKey" class="headerlink" title="GenerateKey"></a>GenerateKey</h5><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">GenerateKey</span><span class="params">(<span class="built_in">string</span> &amp; public_key, <span class="built_in">string</span> &amp; private_key, <span class="keyword">unsigned</span> <span class="keyword">int</span> key_size)</span></span>;</span></pre></td></tr></table></figure>
+<ul>
+<li>描述：生成密钥对</li>
+<li>返回值：void</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>参数名</th>
+<th>类型</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>public_key</td>
+<td>string&amp;</td>
+<td>返回生成的公钥</td>
+</tr>
+<tr>
+<td>private_key</td>
+<td>string&amp;</td>
+<td>返回生成的私钥</td>
+</tr>
+<tr>
+<td>key_size</td>
+<td>unsigned int</td>
+<td>密钥长度（例如1024）</td>
+</tr>
+</tbody></table>
+<h5 id="RSA-Encrypt"><a href="#RSA-Encrypt" class="headerlink" title="RSA_Encrypt"></a>RSA_Encrypt</h5><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">RSA_Encrypt</span><span class="params">(<span class="built_in">string</span> &amp; public_key, <span class="built_in">string</span> source, <span class="built_in">string</span> &amp; encrypted)</span></span>;</span></pre></td></tr></table></figure>
+<ul>
+<li>描述：RSA解密</li>
+<li>返回值：(int)加密正常返回1，返回-1为字符串过长</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>参数名</th>
+<th>类型</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>public_key</td>
+<td>string&amp;</td>
+<td>公钥</td>
+</tr>
+<tr>
+<td>source</td>
+<td>string</td>
+<td>待加密字符串</td>
+</tr>
+<tr>
+<td>encrypted</td>
+<td>string&amp;</td>
+<td>加密后字符串</td>
+</tr>
+</tbody></table>
+<h5 id="RSA-Decrypt"><a href="#RSA-Decrypt" class="headerlink" title="RSA_Decrypt"></a>RSA_Decrypt</h5><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">RSA_Decrypt</span><span class="params">(<span class="built_in">string</span> &amp; private_key, <span class="built_in">string</span> source, <span class="built_in">string</span> &amp; decrypted)</span></span>;</span></pre></td></tr></table></figure>
+<ul>
+<li>描述：RSA加密</li>
+<li>返回值：(int)解密正常返回1</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>参数名</th>
+<th>类型</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>private_key</td>
+<td>string&amp;</td>
+<td>私钥</td>
+</tr>
+<tr>
+<td>source</td>
+<td>string</td>
+<td>待解密字符串</td>
+</tr>
+<tr>
+<td>decrypted</td>
+<td>string&amp;</td>
+<td>解密后字符串</td>
+</tr>
+</tbody></table>
+<h5 id="RSA-EncryptBySection"><a href="#RSA-EncryptBySection" class="headerlink" title="RSA_EncryptBySection"></a>RSA_EncryptBySection</h5><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">RSA_EncryptBySection</span><span class="params">(<span class="built_in">string</span> &amp; public_key, <span class="built_in">string</span> source, <span class="built_in">string</span> &amp; encrypted, <span class="keyword">int</span> section_length)</span></span>;</span></pre></td></tr></table></figure>
+<ul>
+<li>描述：RSA分段加密，此函数常用于超长字符串的加密。将字符串定长地分割为若干段后进行加密，然后拼接。</li>
+<li>返回值：(int)加密正常返回1</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>参数名</th>
+<th>类型</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>public_key</td>
+<td>string&amp;</td>
+<td>公钥</td>
+</tr>
+<tr>
+<td>source</td>
+<td>string</td>
+<td>待加密字符串</td>
+</tr>
+<tr>
+<td>decrypted</td>
+<td>string&amp;</td>
+<td>加密后字符串</td>
+</tr>
+<tr>
+<td>section_length</td>
+<td>int</td>
+<td>单段长度</td>
+</tr>
+</tbody></table>
+<h5 id="RSA-EncryptBySection-1"><a href="#RSA-EncryptBySection-1" class="headerlink" title="RSA_EncryptBySection"></a>RSA_EncryptBySection</h5><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">RSA_DecryptBySection</span><span class="params">(<span class="built_in">string</span> &amp; private_key, <span class="built_in">string</span> source, <span class="built_in">string</span> &amp; decrypted, <span class="keyword">int</span> section_length)</span></span>;</span></pre></td></tr></table></figure>
+<ul>
+<li>描述：RSA分段解密，此函数常用于解密RSA_EncryptBySection加密的字符串，当然，如果是其他平台/语言使用类似的逻辑进行加密的字符串同样也可以解密。</li>
+<li>返回值：(int)解密正常返回1</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>参数名</th>
+<th>类型</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>private_key</td>
+<td>string&amp;</td>
+<td>私钥</td>
+</tr>
+<tr>
+<td>source</td>
+<td>string</td>
+<td>待解密字符串</td>
+</tr>
+<tr>
+<td>decrypted</td>
+<td>string&amp;</td>
+<td>解密后字符串</td>
+</tr>
+<tr>
+<td>section_length</td>
+<td>int</td>
+<td>单段长度，需要注意的是，这里的单段长度程序是会直接对<code>source</code>中的字符串进行分割，需要使用者自行计算好明文单段长度加密后的密文长度来对应解密，详情请参阅本节<code>备注</code>。</td>
+</tr>
+</tbody></table>
+<h6 id="备注：关于分段解密的section-length参数"><a href="#备注：关于分段解密的section-length参数" class="headerlink" title="备注：关于分段解密的section_length参数"></a>备注：关于分段解密的section_length参数</h6><p>关于分段加密，笔者想做下面的说明。RSA算法对明文是有长度限制的，所以我们在加密超长字符串的时候，有时候采用一种分段加密的手法。因为我们知道，密文的长度与密钥的长度是一样的。例如我们已经生成了一对1024位的密钥，假设我们使用<code>RSA_EncryptBySection</code>函数加密，并将<code>section_length</code>设置为64，那么我们在解密的时候就可以使用<code>RSA_EncryptBySection</code>函数并给<code>section_length</code>设置为256。原因很简单，我们的密文使用了十六进制来编码，所以256个字符实际上对应的是128字节，也就是1024位。用户请自行根据你的密钥长度来进行分段加密和解密。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.fenzhengrou.wang/posts/16459/" data-id="ckhrk29yw0006dyvle7dbg4dg"
+         class="article-share-link">分享</a>
+      
+    </footer>
+
+  </div>
+
+  
+    
+  <nav class="article-nav">
+    
+      <a href="/posts/30296/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">
+          
+            给每个人的微信取证指南，这件事不是截个图那么简单
+          
+        </div>
+      </a>
+    
+    
+      <a href="/posts/27190/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">成都重庆，2018，旅拍</div>
+      </a>
+    
+  </nav>
+
+
+  
+
+  
+    
+  
+
+</article>
+
+
+
+</section>
+  <footer class="footer">
+  <div class="outer">
+    <div class="float-right">
+      <ul class="list-inline">
+  
+    <li><i class="fe fe-smile-alt"></i> <span id="busuanzi_value_site_uv"></span></li>
+  
+</ul>
+    </div>
+    <ul class="list-inline">
+      <li>&copy; 2020 小天才</li>
+      <!-- <li>湘ICP备18010341号-1</li> -->
+    </ul>
+  </div>
+</footer>
+
+</main>
+
+<aside class="sidebar sidebar-specter">
+  
+    <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+    <div class="logo">
+      <a href="/"><img src="/images/hexo.svg" alt="小天才"></a>
+    </div>
+  
+  <ul class="nav nav-main">
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/">首页</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/archives">文字</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/about">关于</a>
+      </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link nav-item-search" title="搜索">
+        <i class="fe fe-search"></i>
+        搜索
+      </a>
+    </li>
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      <div class="totop" id="totop">
+  <i class="fe fe-rocket"></i>
+</div>
+    </li>
+    <li class="nav-item">
+      
+        <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+          <i class="fe fe-feed"></i>
+        </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+  </aside>
+  <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+<script src="/js/lazyload.min.js"></script>
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+  <script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+  <script src="/js/tocbot.min.js"></script>
+  <script>
+    // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+    tocbot.init({
+      tocSelector: '.tocbot',
+      contentSelector: '.article-entry',
+      headingSelector: 'h1, h2, h3, h4, h5, h6',
+      hasInnerContainers: true,
+      scrollSmooth: true,
+      positionFixedSelector: '.tocbot',
+      positionFixedClass: 'is-position-fixed',
+      fixedSidebarOffset: 'auto',
+    });
+  </script>
+
+
+<script src="/js/ocean.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>
+    利用vcpkg轻松安装C++库 |
+    
+    小天才</title>
+  
+    <link rel="shortcut icon" href="/images/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+    <link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+  
+  <script src="/js/pace.min.js"></script>
+</head>
+
+<body>
+<main class="content">
+  <section class="outer">
+  
+
+<article id="post-利用vcpkg轻松安装C++库" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      利用vcpkg轻松安装C++库
+    </h1>
+  
+  
+
+
+
+
+      </header>
+    
+
+    
+      <div class="article-meta">
+        <a href="/posts/65004/" class="article-date">
+  <time datetime="2019-12-10T06:18:47.000Z" itemprop="datePublished">2019-12-10</time>
+</a>
+        
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%95%B4%E7%90%86/">整理</a> / <a class="article-category-link" href="/categories/%E6%95%B4%E7%90%86/%E8%AE%A1%E7%AE%97%E6%9C%BA/">计算机</a>
+  </div>
+
+      </div>
+    
+
+    
+      
+    <div class="tocbot"></div>
+
+
+
+
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+        <p>在C++上配置各种库这件事情是不太容易的。并且在各种平台上可以有各种不同的配置方法。通常我们在使用一个C++库时都具有下面的几个步骤：</p>
+<ol>
+<li>下载库源代码</li>
+<li>编译库</li>
+<li>将库引入到项目中</li>
+</ol>
+<p>虽然只有区区几步，但是在实现这些步骤时却需要做很多事情，并且稍有不慎可能就会导致最终的结果完全错误。</p>
+<p>基于这个问题，微软开源了跨平台的包管理工具vcpkg，它可以在Windows、Linux和MacOS上运行，只需要用一行命令就可以安装C++库并自动地引入到项目中。</p>
+<a id="more"></a>
+
+<p>在下面的例子当中我们将尝试自己动手安装一个带有各种支持的OpenCV库。</p>
+<p>这篇文章主要针对于Windows系统，如果你需要在Linux、MacOS上配置Vcpkg，请参考这篇微软的<a href="https://docs.microsoft.com/zh-cn/cpp/build/vcpkg" target="_blank" rel="noopener">文档</a>：</p>
+<h2 id="配置Vcpkg"><a href="#配置Vcpkg" class="headerlink" title="配置Vcpkg"></a>配置Vcpkg</h2><h3 id="下载并初始化vcpkg"><a href="#下载并初始化vcpkg" class="headerlink" title="下载并初始化vcpkg"></a>下载并初始化vcpkg</h3><p>vcpkg的整个程序托管在GitHub上，你可以在下面的链接当中把vcpkg克隆到本地或者直接下载它的压缩包解压到某个你认为正确的地方。之后vcpkg安装的各类库都会放在这个目录下。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">https:&#x2F;&#x2F;github.com&#x2F;Microsoft&#x2F;vcpkg</span></pre></td></tr></table></figure>
+
+<p>我们在vcpkg的根目录（即可以看到<code>bootstrap-vcpkg.bat</code>文件的目录）的地址栏中直接输入<code>powershell</code>并按下回车，这将打开PowerShell窗口，在其中请输入下面的命令并回车初始化vcpkg：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">./bootstrap-vcpkg.bat</span></pre></td></tr></table></figure>
+
+<p>在执行完毕后，你可以尝试键入下面的命令并回车来验证你的vcpkg已经初始化完成：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">./vcpkg version</span></pre></td></tr></table></figure>
+
+<p>不出意外你应该可以看到一些版本信息的输出。这可以验证你的vcpkg根目录下已经生成了<code>vcpkg.exe</code>这一文件。请你右击这个文件查看属性，并在<code>常规-&gt;位置</code>这一项上复制其后的地址，在之后，我会将这个路径称为<strong>vcpkg的根目录路径</strong>。</p>
+<h3 id="安装集成"><a href="#安装集成" class="headerlink" title="安装集成"></a>安装集成</h3><p>集成是为了让Visual Studio能够直接访问我们安装的库而不需要其他配置，请按下<code>win</code>+<code>x</code>键，然后在弹出的菜单中选择<code>Windows PowerShell (管理员)</code>，并输入命令（请将命令中文字“根目录路径”替换为刚刚复制的vcpkg的根目录路径，<strong>注意请保留两侧的引号</strong>）：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">cd <span class="string">"根目录路径"</span></span></pre></td></tr></table></figure>
+
+<p>例如我的命令看起来像这样：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">cd <span class="string">"C:\libs\vcpkg"</span></span></pre></td></tr></table></figure>
+
+<p>按下回车后，你应该可以看到命令行光标前的目录已经改变。此时，你应该关闭Visual Studio后输入下面的命令并回车：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">./vcpkg integrate install</span></pre></td></tr></table></figure>
+
+<p>此时你已经安装好了Visual Studio的集成，在Visual Studio创建的项目VC++项目当中你可以直接引入头文件调用该库。如果你的项目是CMake项目，你可能需要将<code>CMAKE_TOOLCHAIN_FILE</code>设置为<code>vcpkg根目录路径/scripts/buildsystems/vcpkg.cmake</code>。这个提示通常在你执行上面的命令后获得的输出的最后一行出现。</p>
+<h2 id="安装库"><a href="#安装库" class="headerlink" title="安装库"></a>安装库</h2><p>此时vcpkg已经在计算机中被安装好了，请在vcpkg的根目录的地址栏中直接输入<code>powershell</code>并按下回车，这将再次打开PowerShell窗口（你可以注意到PowerShell窗口的标题栏上没有“管理员”字样），在其中请输入下面的命令搜索OpenCV库：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">./vcpkg search opencv</span></pre></td></tr></table></figure>
+
+<p>可以看到得到的结果中OpenCV后有中括号，其中带有各类支持选项，例如可以选择安装<code>contrib</code>或<code>cuda</code>支持。此处我们可以按照下面的选项在vcpkg中下安装OpenCV（这不是唯一的方法）：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">./vcpkg install opencv[nonfree,contrib,ffmpeg]:x64-windows</span></pre></td></tr></table></figure>
+
+<p>注意，上面的命令中开启了三个支持开关，你可以自由地删去或增加一些。另外，我们利用冒号<code>:</code>描述了这个库的安装选项，即在<code>Windows</code>平台下使用<code>x64</code>进行编译，如果不特别描述，vcpkg会使用默认的<code>x86-windows</code>设置。在其他系统（例如Linux、MacOS）下也可以设置到对应的操作系统。这一项设置对下面在项目中使用非常重要，如果项目设置为x64平台而库的安装使用了x86平台，由于项目与库的平台不兼容，之后当项目尝试使用库时IntelliSense将不会列出这个库的头文件。</p>
+<p>此时按下回车，vcpkg将按照OpenCV的依赖依次安装需要的库，所以不需要担心可能有任何路径上或者依赖上的问题。vcpkg会自动从待安装库的源代码仓库拉去源代码，而通常库的源代码会被托管在GitHub上，由于大陆的网络环境比较特殊，这可能带来几次在下载途中的失败，你可以尝试重新运行上面的命令，也可以为计算机配置代理。安装的过程通常需要持续数分钟到数十分钟。</p>
+<h2 id="在项目中引用"><a href="#在项目中引用" class="headerlink" title="在项目中引用"></a>在项目中引用</h2><p>在OpenCV安装完成后，你可以打开某个项目或创建某个新项目，并在项目中直接使用安装好的OpenCV库，值得注意的是，如果此前安装的是x64编译选项的库，那么它仅在平台设置为x64的项目中有效，同理，如果安装的是x86选项的库则对应平台设置为x86的项目：</p>
+<p><img src="/posts/65004/%E5%BC%95%E5%85%A5%E5%A4%B4%E6%96%87%E4%BB%B6.gif" alt="在项目中使用"></p>
+<p>在编译完成后，vcpkg与Visual Studio的集成将能够把所有依赖的动态链接库文件（Dll文件）拷贝到输出的可执行文件（Exe文件）的目录下。所以你的输出目录可能如下图：</p>
+<p><img src="/posts/65004/%E8%BE%93%E5%87%BA%E6%96%87%E4%BB%B6%E5%A4%B9.png" alt="输出文件"></p>
+<p>如果你只是像上面的动图一样只引用了头文件而没有写任何使用到OpenCV的代码，你的输出目录仍然可能不包括上面的这些动态链接库文件（Dll文件）。这时你可以利用下面的示例代码来输出OpenCV的版本号。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;opencv2/opencv.hpp&gt;</span></span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"><span class="function"></span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">	<span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; CV_VERSION &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+
+<p>此时，你已经利用vcpkg完成了对OpenCV库的安装。你可以继续尝试安装或使用其他的库。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.fenzhengrou.wang/posts/65004/" data-id="ckhrk29zk000ldyvl728odnmn"
+         class="article-share-link">分享</a>
+      
+    </footer>
+
+  </div>
+
+  
+    
+  <nav class="article-nav">
+    
+      <a href="/posts/36478/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">
+          
+            LXD虚拟化服务器
+          
+        </div>
+      </a>
+    
+    
+      <a href="/posts/15980/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">2018，这一年，我的备忘录</div>
+      </a>
+    
+  </nav>
+
+
+  
+
+  
+    
+  
+
+</article>
+
+
+
+</section>
+  <footer class="footer">
+  <div class="outer">
+    <div class="float-right">
+      <ul class="list-inline">
+  
+    <li><i class="fe fe-smile-alt"></i> <span id="busuanzi_value_site_uv"></span></li>
+  
+</ul>
+    </div>
+    <ul class="list-inline">
+      <li>&copy; 2020 小天才</li>
+      <!-- <li>湘ICP备18010341号-1</li> -->
+    </ul>
+  </div>
+</footer>
+
+</main>
+
+<aside class="sidebar sidebar-specter">
+  
+    <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+    <div class="logo">
+      <a href="/"><img src="/images/hexo.svg" alt="小天才"></a>
+    </div>
+  
+  <ul class="nav nav-main">
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/">首页</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/archives">文字</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/about">关于</a>
+      </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link nav-item-search" title="搜索">
+        <i class="fe fe-search"></i>
+        搜索
+      </a>
+    </li>
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      <div class="totop" id="totop">
+  <i class="fe fe-rocket"></i>
+</div>
+    </li>
+    <li class="nav-item">
+      
+        <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+          <i class="fe fe-feed"></i>
+        </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+  </aside>
+  <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+<script src="/js/lazyload.min.js"></script>
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+  <script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+  <script src="/js/tocbot.min.js"></script>
+  <script>
+    // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+    tocbot.init({
+      tocSelector: '.tocbot',
+      contentSelector: '.article-entry',
+      headingSelector: 'h1, h2, h3, h4, h5, h6',
+      hasInnerContainers: true,
+      scrollSmooth: true,
+      positionFixedSelector: '.tocbot',
+      positionFixedClass: 'is-position-fixed',
+      fixedSidebarOffset: 'auto',
+    });
+  </script>
+
+
+<script src="/js/ocean.js"></script>
+
+</body>
+</html>

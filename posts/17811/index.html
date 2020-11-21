@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>
+    Caffe 以及 Caffe-SSD 的配置 |
+    
+    小天才</title>
+  
+    <link rel="shortcut icon" href="/images/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+    <link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+  
+  <script src="/js/pace.min.js"></script>
+</head>
+
+<body>
+<main class="content">
+  <section class="outer">
+  
+
+<article id="post-Caffe 以及 Caffe-SSD 在Ubuntu16.04上的配置" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Caffe 以及 Caffe-SSD 的配置
+    </h1>
+  
+  
+
+
+
+
+      </header>
+    
+
+    
+      <div class="article-meta">
+        <a href="/posts/17811/" class="article-date">
+  <time datetime="2018-11-14T16:46:49.000Z" itemprop="datePublished">2018-11-15</time>
+</a>
+        
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%95%B4%E7%90%86/">整理</a> / <a class="article-category-link" href="/categories/%E6%95%B4%E7%90%86/%E8%AE%A1%E7%AE%97%E6%9C%BA/">计算机</a>
+  </div>
+
+      </div>
+    
+
+    
+      
+    <div class="tocbot"></div>
+
+
+
+
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+        <p>这段时间装了很多次Caffe，总结了一些方法和经验。此处笔者安装的是带GPU支持的Caffe。但是CPU ONLY的方法与GPU安装差异不大。笔者会在其中说明。</p>
+<a id="more"></a>
+
+<h2 id="第一部分-Nvidia-环境安装"><a href="#第一部分-Nvidia-环境安装" class="headerlink" title="第一部分 Nvidia 环境安装"></a>第一部分 Nvidia 环境安装</h2><p>这一部分我们需要安装NVIDIA的基本环境，所以，<strong>并非使用 Nvidia GPU 的读者以及使用CPU的读者可以跳过这一部分</strong>。这一部分主要包括：</p>
+<ul>
+<li>Nvidia 驱动程序</li>
+<li>CUDA（此处我们安装8.0版本）</li>
+<li>cudnn（此处我们安装6.1版本）</li>
+</ul>
+<h3 id="Nvidia-驱动程序"><a href="#Nvidia-驱动程序" class="headerlink" title="Nvidia 驱动程序"></a>Nvidia 驱动程序</h3><p>在Ubuntu中，你可以在你的 设置-&gt;软件和更新-&gt;附加驱动 中看到Nvidia的驱动，你可以尝试安装此驱动。当然，如果你希望手动安装，可以到<a href="https://www.nvidia.cn/Download/index.aspx?lang=cn" target="_blank" rel="noopener">Nvidia的网站</a>选择你的型号来下载驱动程序。</p>
+<p>![nvidia-select](C:\Users\xuzih\OneDrive\文档\博客\Caffe 以及 Caffe-SSD 在Ubuntu16.04上的配置\nvidia-select.png)</p>
+<p>在Ubuntu 16.04中由于系统已经提供了较好的驱动可以直接使用，所以此处推荐直接使用该驱动。驱动安装完成以后可以在终端运行命令<code>nvidia-smi</code>查看GPU信息。</p>
+<h3 id="CUDA"><a href="#CUDA" class="headerlink" title="CUDA"></a>CUDA</h3><p>首先你需要到 Nvidia的网站<a href="https://developer.nvidia.com/cuda-downloads?" target="_blank" rel="noopener">下载CUDA</a>。截至本文撰写前，CUDA Toolkit的最新版本是10.0。此处笔者点击<code>Legacy Releases</code>找到了8.0的版本下载。为了安装方便，笔者选择下载<code>run</code>文件。</p>
+<p>![download-cuda](C:\Users\xuzih\OneDrive\文档\博客\Caffe 以及 Caffe-SSD 在Ubuntu16.04上的配置\download-cuda.png)</p>
+<p>下载完成以后，按<code>Ctrl+Alt+F1</code>进入字符终端界面，按照正常方式登陆之后，运行下面的命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">$ sudo service lightdm stop #关闭图形界面</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">$ sudo bash cuda_8.0.61_375.26_linux.run</span></pre></td></tr></table></figure>
+
+<p>此时会出现安装协议，只需要按空格键即可快速跳过，接受协议。之后会询问是否安装驱动。由于我们现在已经安装了 Nvidia驱动，所以已经不需要再安装驱动（注：笔者在不安装Nvidia驱动的情况下直接采用此驱动也会安装失败）。安装完成后，就可以启动图形界面了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">$ sudo service lightdm start</span></pre></td></tr></table></figure>
+
+<p>要检查CUDA是否安装完成，可以直接在终端运行<code>nvcc -V</code>即可输出CUDA版本信息。现在我们开始安装cudnn，首先解压cudnn的压缩包到当前文件夹（即一个名为cuda文件夹）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">$ cd cuda</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">$ cd include</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">$ sudo cp cudnn.h &#x2F;usr&#x2F;local&#x2F;cuda&#x2F;include&#x2F; #复制头文件</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">$ cd ..</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">$ cd lib64</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">$ sudo cp lib* &#x2F;usr&#x2F;local&#x2F;cuda&#x2F;lib64&#x2F; #复制动态链接库</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">$ cd &#x2F;usr&#x2F;local&#x2F;cuda&#x2F;lib64&#x2F;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">$ sudo chmod +r libcudnn.so.6.0.21 #此处注意笔者安装的是6.0.21版本，你的版本可能与此不同</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">$ sudo ln -sf libcudnn.so.6.0.21 libcudnn.so.6 #链接到大版本</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">$ sudo ln -sf libcudnn.so.6 libcudnn.so</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">$ sudo ldconfig #使链接生效</span></pre></td></tr></table></figure>
+
+<p>到此时，我们就已经安装好了基本的CUDA环境。接下来，我们需要设定几个环境变量来使得我们的设置生效。如果想要这个设置对所有用户生效，就在命令行运行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">sudo gedit &#x2F;etc&#x2F;profile</span></pre></td></tr></table></figure>
+
+<p>如果仅仅想要对本用户有效，则运行：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">sudo gedit ~&#x2F;.bashrc</span></pre></td></tr></table></figure>
+
+<p>然后在文件中添加如下内容，其中的cuda版本需要根据你的实际情况进行替换：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">export PATH&#x3D;$PATH:&#x2F;usr&#x2F;local&#x2F;cuda-8.0&#x2F;bin</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">export LD_LIBRARY_PATH&#x3D;$LD_LIBRARY_PATH:&#x2F;usr&#x2F;local&#x2F;cuda-8.0&#x2F;lib64</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">export LIBRARY_PATH&#x3D;$LIBRARY_PATH:&#x2F;usr&#x2F;local&#x2F;cuda-8.0&#x2F;lib64</span></pre></td></tr></table></figure>
+
+<p>保存好之后重启终端或直接运行<code>source ~/.bashrc</code>或<code>source /etc/profile</code>。</p>
+<p>到这里CUDA就已经安装完成了，接下来我们就开始安装Caffe。</p>
+<h2 id="Caffe-安装"><a href="#Caffe-安装" class="headerlink" title="Caffe 安装"></a>Caffe 安装</h2><h3 id="安装依赖"><a href="#安装依赖" class="headerlink" title="安装依赖"></a>安装依赖</h3><p>首先运行以下命令安装好对应的依赖：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">$ sudo apt-get install libprotobuf-dev libleveldb-dev libsnappy-dev libopencv-dev libhdf5-serial-dev protobuf-compiler</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">$ sudo apt-get install --no-install-recommends libboost-all-dev</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">$ sudo apt-get install libopenblas-dev liblapack-dev libatlas-base-dev</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">$ sudo apt-get install libgflags-dev libgoogle-glog-dev liblmdb-dev</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">$ sudo apt-get install git cmake build-essential</span></pre></td></tr></table></figure>
+
+<p>安装的同时也可以下载对应的Caffe的程序：</p>
+<p>如果是安装原版的Caffe：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">$ git clone https:&#x2F;&#x2F;github.com&#x2F;BVLC&#x2F;caffe</span></pre></td></tr></table></figure>
+
+<p>如果是安装Caffe-SSD：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">$ git clone https:&#x2F;&#x2F;github.com&#x2F;weiliu89&#x2F;caffe.git caffe-ssd</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">$ cd caffe-ssd</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">$ git checkout ssd</span></pre></td></tr></table></figure>
+
+<p>此时caffe文件夹（如果安装的Caffe-SSD即为caffe-ssd）就能够下载到终端当前的文件夹下。依赖安装完成以后，进入到<code>caffe/python</code>文件夹下，运行下面的命令安装python的依赖：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">$ pip install -r requirements.txt</span></pre></td></tr></table></figure>
+
+<h3 id="编译配置"><a href="#编译配置" class="headerlink" title="编译配置"></a>编译配置</h3><p>安装完成后回退到Caffe的根目录，制作配置文件：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">sudo cp Makefile.config.example Makefile.config</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">sudo gedit Makefile.config</span></pre></td></tr></table></figure>
+
+<p>编辑其中的内容，将：</p>
+<ul>
+<li>#USE_CUDNN := 1 前的井号去掉</li>
+<li>#OPENCV_VERSION := 3 前的井号去掉</li>
+<li>#WITH_PYTHON_LAYER := 1 前的井号去掉</li>
+</ul>
+<p>针对一些包含库的路径，将：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">INCLUDE_DIRS :&#x3D; $(PYTHON_INCLUDE) &#x2F;usr&#x2F;local&#x2F;include</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">LIBRARY_DIRS :&#x3D; $(PYTHON_LIB) &#x2F;usr&#x2F;local&#x2F;lib &#x2F;usr&#x2F;lib</span></pre></td></tr></table></figure>
+
+<p>替换为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">INCLUDE_DIRS :&#x3D; $(PYTHON_INCLUDE) &#x2F;usr&#x2F;local&#x2F;include &#x2F;usr&#x2F;include&#x2F;hdf5&#x2F;serial</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">LIBRARY_DIRS :&#x3D; $(PYTHON_LIB) &#x2F;usr&#x2F;local&#x2F;lib &#x2F;usr&#x2F;lib &#x2F;usr&#x2F;lib&#x2F;x86_64-linux-gnu &#x2F;usr&#x2F;lib&#x2F;x86_64-linux-gnu&#x2F;hdf5&#x2F;serial</span></pre></td></tr></table></figure>
+
+<p>保存文件后，接下来在根目录下运行下面的命令创建我们的编译目录并打开图形界面的cmake：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">$ mkdir build</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">$ cmake-gui</span></pre></td></tr></table></figure>
+
+<p>将<code>Where is the source code</code>设置为Caffe的根目录，将<code>Where to build the binaries</code>设置为我们刚刚创建的build文件路径。点击<code>Configure</code>按钮列出选项。</p>
+<p>值得注意的是，列表中的python_version选项，如果你需要使用python3，则需要将默认的2修改为3。然后勾选上面的<code>Advance</code>多选框。在左侧的搜索框中搜索python，然后修改<code>PYTHON_EXECUTABLE</code>、<code>PYTHON_INCLUDE_DIR</code>、<code>PYTHON_LIBRARY</code>。下面是一个简单的例子。</p>
+<p>![cmake-config1](C:\Users\xuzih\OneDrive\文档\博客\Caffe 以及 Caffe-SSD 在Ubuntu16.04上的配置\cmake-config1.png)</p>
+<p>接下来再搜索<code>CMAKE_CXX_FLAGS</code>并在其中添加<code>-std=c++11</code>以启用编译器C++11标准的支持。</p>
+<p>最后点击<code>Generate</code>按钮，即可完成编译的配置。</p>
+<h3 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h3><p>编译时先进入到<code>build</code>目录，运行下面的命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">$ make all -j4 #j之后的数字是线程数，可根据cpu的性能进行设置，此处笔者使用的设备为两颗i7 8700所以常设为12或者16。</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">$ sudo make test</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">$ sudo make runtest</span></pre></td></tr></table></figure>
+
+<p>最后当编译完成，runtest也提示pass之后即说明Caffe的安装基本成功。</p>
+<h3 id="编译问题说明"><a href="#编译问题说明" class="headerlink" title="编译问题说明"></a>编译问题说明</h3><p>在编译过程中有可能有如下问题，笔者会根据读者的反馈进行增加：</p>
+<ul>
+<li>libTiff异常：make的最后的链接阶段提示<code>@LIBTIFF_4.0未定义的引用</code>，此时读者应检查opencv的版本是否异常，例如笔者自行编译的opencv3.4.3就与自带的2.4版本有冲突，需要在之前cmake-gui设置的时候把<code>OpenCV_DIR</code>设置为你的OpenCV路径（注意，此路径下需要包含OpenCVConfig.cmake文件，通常是源码安装的OpenCV中的build文件夹下）。如果不是该问题则请检查libTiff是否安装。</li>
+</ul>
+<h3 id="扫尾工作"><a href="#扫尾工作" class="headerlink" title="扫尾工作"></a>扫尾工作</h3><p>如果需要在Python中使用Caffe接口，则请运行：</p>
+<p>为所有用户设置：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">sudo gedit &#x2F;etc&#x2F;profile</span></pre></td></tr></table></figure>
+
+<p>为当前用户设置：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">sudo gedit ~&#x2F;.bashrc</span></pre></td></tr></table></figure>
+
+<p>在其中添加如下内容（注意其中路径需要替换）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">export PYTHONPATH&#x3D;&#x2F;path&#x2F;to&#x2F;caffe&#x2F;python:$PYTHONPATH</span></pre></td></tr></table></figure>
+
+<p>最后重启终端，或者运行<code>source ~/.bashrc</code>或<code>source /etc/profile</code>即可完成安装。在python中直接：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">import caffe</span></pre></td></tr></table></figure>
+
+<p>若无报错即安装成功。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.fenzhengrou.wang/posts/17811/" data-id="ckhrk29ym0004dyvlab90b6o3"
+         class="article-share-link">分享</a>
+      
+    </footer>
+
+  </div>
+
+  
+    
+  <nav class="article-nav">
+    
+      <a href="/posts/15980/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">
+          
+            2018，这一年，我的备忘录
+          
+        </div>
+      </a>
+    
+    
+      <a href="/posts/10943/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">Calenass 轻松管理课程日程</div>
+      </a>
+    
+  </nav>
+
+
+  
+
+  
+    
+  
+
+</article>
+
+
+
+</section>
+  <footer class="footer">
+  <div class="outer">
+    <div class="float-right">
+      <ul class="list-inline">
+  
+    <li><i class="fe fe-smile-alt"></i> <span id="busuanzi_value_site_uv"></span></li>
+  
+</ul>
+    </div>
+    <ul class="list-inline">
+      <li>&copy; 2020 小天才</li>
+      <!-- <li>湘ICP备18010341号-1</li> -->
+    </ul>
+  </div>
+</footer>
+
+</main>
+
+<aside class="sidebar sidebar-specter">
+  
+    <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+    <div class="logo">
+      <a href="/"><img src="/images/hexo.svg" alt="小天才"></a>
+    </div>
+  
+  <ul class="nav nav-main">
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/">首页</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/archives">文字</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/about">关于</a>
+      </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link nav-item-search" title="搜索">
+        <i class="fe fe-search"></i>
+        搜索
+      </a>
+    </li>
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      <div class="totop" id="totop">
+  <i class="fe fe-rocket"></i>
+</div>
+    </li>
+    <li class="nav-item">
+      
+        <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+          <i class="fe fe-feed"></i>
+        </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+  </aside>
+  <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+<script src="/js/lazyload.min.js"></script>
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+  <script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+  <script src="/js/tocbot.min.js"></script>
+  <script>
+    // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+    tocbot.init({
+      tocSelector: '.tocbot',
+      contentSelector: '.article-entry',
+      headingSelector: 'h1, h2, h3, h4, h5, h6',
+      hasInnerContainers: true,
+      scrollSmooth: true,
+      positionFixedSelector: '.tocbot',
+      positionFixedClass: 'is-position-fixed',
+      fixedSidebarOffset: 'auto',
+    });
+  </script>
+
+
+<script src="/js/ocean.js"></script>
+
+</body>
+</html>
